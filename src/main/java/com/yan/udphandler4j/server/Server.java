@@ -1,6 +1,6 @@
 package com.yan.udphandler4j.server;
 
-import com.yan.udphandler4j.async.QueuedThreads;
+import com.yan.udphandler4j.async.QueuedThread;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.util.logging.Level;
@@ -50,12 +50,13 @@ public class Server {
         try {
             datagramSocket = new DatagramSocket(port);
 
+            System.out.println("Servidor iniciado com sucesso.");
             while (true) {
                 DatagramPacket receivePacket = new DatagramPacket(buffer,
                         buffer.length);
                 datagramSocket.receive(receivePacket);
 
-                QueuedThreads.queue.add(receivePacket);
+                QueuedThread.queue.add(receivePacket);
             }
         } catch (Exception ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);

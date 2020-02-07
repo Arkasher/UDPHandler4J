@@ -5,9 +5,9 @@ import java.net.DatagramPacket;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class QueuedThreads {
+public class QueuedThread {
 
-    public static BlockingQueue<DatagramPacket> queue = new LinkedBlockingQueue<>(1024);
+    public static BlockingQueue<DatagramPacket> queue = new LinkedBlockingQueue<>();
 
     public static void startQueue() {
         PacketHandler handler = new PacketHandler();
