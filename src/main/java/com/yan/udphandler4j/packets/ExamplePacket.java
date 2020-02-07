@@ -2,6 +2,10 @@ package com.yan.udphandler4j.packets;
 
 import java.net.DatagramPacket;
 
+/**
+ * Pacote de exemplo
+ * @author Yan
+ */
 public class ExamplePacket extends Packet {
     
     private int id;

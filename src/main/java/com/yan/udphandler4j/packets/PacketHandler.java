@@ -8,10 +8,18 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.reflections.Reflections;
 
+/**
+ * Classe que gerencia os pacotes
+ * @author Yan
+ */
 public class PacketHandler {
 
     private static final ArrayList<Packet> packets = new ArrayList<>();
 
+    /**
+     * Recebe um DatagramPacket e trata
+     * @param datagramPacket 
+     */
     public void handle(DatagramPacket datagramPacket) {
         byte[] data = datagramPacket.getData();
 
@@ -19,6 +27,11 @@ public class PacketHandler {
         handledPacket.handle(datagramPacket);
     }
 
+    /**
+     * Retorna o pacote buscando pelo id do mesmo
+     * @param bit
+     * @return 
+     */
     private Packet getPacketClass(byte bit) {
         for (Packet packet1 : packets) {
             if ((byte) packet1.getId() == bit) {
@@ -26,15 +39,21 @@ public class PacketHandler {
             }
         }
         return null;
-        //return packets.stream().filter(packet -> packet.id == bit).collect(Collectors.toList()).get(0);
     }
 
+    /**
+     * Carrega os pacotes do sistema
+     */
     public void loadPackets() {
         System.out.println("Carregando lista de pacotes...");
         packets.addAll(getPacketClasses());
         System.out.println("Lista de pacotes (" + packets.size() + ") carregada com sucesso.");
     }
 
+    /**
+     * Retorna a lista de pacotes
+     * @return ArrayList<Packet>
+     */
     private ArrayList<Packet> getPacketClasses() {
         ArrayList<Packet> packetList = new ArrayList<>();
 

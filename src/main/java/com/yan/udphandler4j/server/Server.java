@@ -7,8 +7,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author ybroe
+ * Instancia do Servidor
+ * @author Yan
  */
 public class Server {
 

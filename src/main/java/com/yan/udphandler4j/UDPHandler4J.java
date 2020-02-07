@@ -4,6 +4,10 @@ import com.yan.udphandler4j.async.QueuedThread;
 import com.yan.udphandler4j.packets.PacketHandler;
 import com.yan.udphandler4j.server.Server;
 
+/**
+ * Classe principal do gerenciador
+ * @author Yan
+ */
 public class UDPHandler4J {
 
     /**

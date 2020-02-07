@@ -3,8 +3,8 @@ package com.yan.udphandler4j.packets;
 import java.net.DatagramPacket;
 
 /**
- *
- * @author ybroe
+ * Classe abstrata do pacote
+ * @author Yan
  */
 abstract class Packet {
    
