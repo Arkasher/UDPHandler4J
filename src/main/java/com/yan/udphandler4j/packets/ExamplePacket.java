@@ -6,18 +6,13 @@ import java.net.DatagramPacket;
  *
  * @author ybroe
  */
-public class DefaultPacket extends Packet {
+public class ExamplePacket extends Packet {
     
     private int id;
     
     @Override
     void handle(DatagramPacket datagramPacket) {
-        System.out.println(getName() + " executado com sucesso.");
-    }
-
-    @Override
-    String getName() {
-        return "DefaultPacket";
+        System.out.println(getClass().getName()+ " executado com sucesso.");
     }
 
     @Override

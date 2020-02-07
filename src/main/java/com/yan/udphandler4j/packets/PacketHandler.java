@@ -23,7 +23,7 @@ public class PacketHandler {
 
     private Packet getPacketClass(byte bit) {
         for (Packet packet1 : packets) {
-            if ((byte)packet1.getId() == bit) {
+            if ((byte) packet1.getId() == bit) {
                 return packet1;
             }
         }
@@ -55,7 +55,7 @@ public class PacketHandler {
                         Logger.getLogger(PacketHandler.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                System.out.println("Pacote " + packet.getName() + " (" + packet.getId() + ") carregado.");
+                System.out.println("Pacote " + packet.getClass().getName() + " (" + packet.getId() + ") carregado.");
                 packetList.add(packet);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex) {
                 Logger.getLogger(PacketHandler.class.getName()).log(Level.SEVERE, null, ex);
