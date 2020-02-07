@@ -1,13 +1,11 @@
 package com.yan.udphandler4j.packets;
 
-import com.yan.udphandler4j.errors.PacketIdAlreadyRegisteredException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import org.reflections.Reflections;
 
 public class PacketHandler {
@@ -48,13 +46,6 @@ public class PacketHandler {
             try {
                 Packet packet = aClass.getConstructor().newInstance();
                 packet.setId(packetList.size());
-                if (packetList.stream().filter(p -> packet.getId() == p.getId()).collect(Collectors.toList()).size() > 0) {
-                    try {
-                        throw new PacketIdAlreadyRegisteredException("Existem pacotes com ID's iguais.");
-                    } catch (PacketIdAlreadyRegisteredException ex) {
-                        Logger.getLogger(PacketHandler.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
                 System.out.println("Pacote " + packet.getClass().getName() + " (" + packet.getId() + ") carregado.");
                 packetList.add(packet);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex) {
