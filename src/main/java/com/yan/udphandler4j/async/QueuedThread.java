@@ -26,6 +26,9 @@ public class QueuedThread {
                     handler.handle(packet);
                 }
             } catch (InterruptedException exception) {
+                /**
+                 * Se ocorrer algum erro, reinicia a fila
+                 */
                 startQueue();
             }
         });

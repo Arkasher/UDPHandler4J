@@ -3,8 +3,6 @@ package com.yan.udphandler4j.server;
 import com.yan.udphandler4j.async.QueuedThread;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Instancia do Servidor
@@ -50,7 +48,7 @@ public class Server {
         try {
             datagramSocket = new DatagramSocket(port);
 
-            System.out.println("Servidor iniciado com sucesso.");
+            System.out.println("Servidor iniciado na porta " + getPort());
             while (true) {
                 DatagramPacket receivePacket = new DatagramPacket(buffer,
                         buffer.length);
@@ -59,7 +57,7 @@ public class Server {
                 QueuedThread.queue.add(receivePacket);
             }
         } catch (Exception ex) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Ocorreu um erro ao iniciar o servidor: " + ex.getLocalizedMessage());
         }
     }
 

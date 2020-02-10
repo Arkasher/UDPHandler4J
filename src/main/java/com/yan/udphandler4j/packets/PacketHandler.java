@@ -4,8 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.reflections.Reflections;
 
 /**
@@ -22,7 +20,7 @@ public class PacketHandler {
      */
     public void handle(DatagramPacket datagramPacket) {
         byte[] data = datagramPacket.getData();
-
+        
         Packet handledPacket = getPacketClass(data[0]);
         handledPacket.handle(datagramPacket);
     }
@@ -38,7 +36,7 @@ public class PacketHandler {
                 return packet1;
             }
         }
-        return null;
+        return new WrongPacket();
     }
 
     /**
@@ -57,6 +55,9 @@ public class PacketHandler {
     private ArrayList<Packet> getPacketClasses() {
         ArrayList<Packet> packetList = new ArrayList<>();
 
+        /**
+         * Identifica todas as classes do pacote que extende um Packet, e carrega.
+         */
         Reflections reflections = new Reflections("com.yan.udphandler4j.packets");
         Set<Class<? extends Packet>> classes = reflections.getSubTypesOf(Packet.class);
         classes.stream().map((Class<? extends Packet> aClass) -> {
@@ -68,7 +69,7 @@ public class PacketHandler {
                 System.out.println("Pacote " + packet.getClass().getName() + " (" + packet.getId() + ") carregado.");
                 packetList.add(packet);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex) {
-                Logger.getLogger(PacketHandler.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println("Erro ao carregar um pacote. Erro: " + ex.getLocalizedMessage());
             }
         });
         return packetList;

@@ -8,8 +8,23 @@ import java.net.DatagramPacket;
  */
 abstract class Packet {
    
+    /**
+     * Retorna o id do pacote
+     * @return int
+     */
     abstract int getId();
+    
+    /**
+     * Define o id do pacote
+     * Não use esse método, apenas se souber o que está fazendo
+     * @param id 
+     */
     abstract void setId(int id);
+    
+    /**
+     * Trata o pacote
+     * @param datagramPacket 
+     */
     abstract void handle(DatagramPacket datagramPacket);
     
 }
