@@ -3,7 +3,9 @@ package com.yan.udphandler4j.packets;
 import java.net.DatagramPacket;
 
 /**
- * Classe abstrata do pacote
+ * Classe abstrata de um pacote
+ * Caso seja necessário, deixe o setId hard-coded, inserindo manualmente o id do pacote;
+ * Isso irá evitar alterações futuras em id's de pacotes
  * @author Yan
  */
 abstract class Packet {
