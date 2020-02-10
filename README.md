@@ -52,4 +52,7 @@ public class MyPacket extends Packet {
 }
 ```
 
+## Projeto exemplo
+Link para o projeto exemplo: https://github.com/Arkasher/UDPHandler4JExample
+
 Agora basta executar o projeto
