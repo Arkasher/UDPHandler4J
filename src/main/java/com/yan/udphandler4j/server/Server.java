@@ -1,6 +1,7 @@
 package com.yan.udphandler4j.server;
 
 import com.yan.udphandler4j.async.QueuedThread;
+import com.yan.udphandler4j.models.Preferences;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
@@ -13,6 +14,8 @@ public class Server {
     private int port;
     private byte[] buffer;
 
+    private Preferences preferences;
+    
     private DatagramSocket datagramSocket;
     
     /**
@@ -41,6 +44,14 @@ public class Server {
         this.buffer = buffer;
     }
 
+    public Preferences getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(Preferences preferences) {
+        this.preferences = preferences;
+    }
+    
     /**
      * Inicia o servidor UDP
      */
@@ -58,6 +69,7 @@ public class Server {
             }
         } catch (Exception ex) {
             System.out.println("Ocorreu um erro ao iniciar o servidor: " + ex.getLocalizedMessage());
+            System.exit(0);
         }
     }
 
