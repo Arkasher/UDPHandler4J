@@ -8,25 +8,25 @@ import java.net.DatagramPacket;
  * Isso irá evitar alterações futuras em id's de pacotes
  * @author Yan
  */
-abstract class Packet {
+public abstract class Packet {
    
     /**
      * Retorna o id do pacote
      * @return int
      */
-    abstract int getId();
+    public abstract int getId();
     
     /**
      * Define o id do pacote
      * Não use esse método, apenas se souber o que está fazendo
      * @param id 
      */
-    abstract void setId(int id);
+    public abstract void setId(int id);
     
     /**
      * Trata o pacote
      * @param datagramPacket 
      */
-    abstract void handle(DatagramPacket datagramPacket);
+    public abstract void handle(DatagramPacket datagramPacket);
     
 }

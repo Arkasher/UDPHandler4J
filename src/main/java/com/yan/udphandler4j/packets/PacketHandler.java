@@ -23,7 +23,7 @@ public class PacketHandler {
      * Array de Strings para o sistema procurar por classes que herdam a classe
      * Packet
      */
-    public static final ArrayList<String> registeredPackets = new ArrayList<>();
+    public static final ArrayList<Package> registeredPackets = new ArrayList<>();
 
     /**
      * Recebe um DatagramPacket e trata
@@ -57,12 +57,12 @@ public class PacketHandler {
      */
     public void loadPackets() {
         if(UDPHandler4J.getServer().getPreferences().hasDefaultPackets()) {
-            registerJavaPacket("com.yan.udphandler4j.packets");
+            registerJavaPacket(Package.getPackage("com.yan.udphandler4j"));
         }
         
         System.out.println("Carregando lista de pacotes...");
-        registeredPackets.forEach((javaPacket) -> {
-            packets.addAll(getPacketClasses(javaPacket));
+        registeredPackets.forEach((javaPackage) -> {
+            packets.addAll(getPacketClasses(javaPackage));
         });
         System.out.println("Lista de pacotes (" + packets.size() + ") carregada com sucesso.");
     }
@@ -72,14 +72,14 @@ public class PacketHandler {
      *
      * @return ArrayList<Packet>
      */
-    private ArrayList<Packet> getPacketClasses(String javaPacket) {
+    private ArrayList<Packet> getPacketClasses(Package javaPackage) {
         ArrayList<Packet> packetList = new ArrayList<>();
 
         /**
          * Identifica todas as classes do pacote que extende um Packet, e
          * carrega.
          */
-        Reflections reflections = new Reflections(javaPacket);
+        Reflections reflections = new Reflections(javaPackage.getName());
         Set<Class<? extends Packet>> classes = reflections.getSubTypesOf(Packet.class);
         classes.stream().map((Class<? extends Packet> aClass) -> {
             return aClass;
@@ -101,8 +101,8 @@ public class PacketHandler {
      *
      * @param javaPacket
      */
-    public static void registerJavaPacket(String javaPacket) {
-        registeredPackets.add(javaPacket);
-        System.out.println("Pacote de classes Java " + javaPacket + " adicionado.");
+    public static void registerJavaPacket(Package javaPackage) {
+        registeredPackets.add(javaPackage);
+        System.out.println("Pacote de classes Java " + javaPackage.getName() + " adicionado.");
     }
 }

@@ -20,7 +20,7 @@ public class UDPHandler4J {
      *
      * @param args
      */
-    public static void main(String args[]) {
+    public static void run(String args[]) {
 
         /**
          * Carrega a lista de argumentos

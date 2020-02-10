@@ -12,17 +12,17 @@ public class WrongPacket extends Packet {
     private int id;
 
     @Override
-    void handle(DatagramPacket datagramPacket) {
+    public void handle(DatagramPacket datagramPacket) {
         System.out.println("Pacote " + datagramPacket.getData()[0] + " incorreto");
     }
 
     @Override
-    int getId() {
+    public int getId() {
         return id;
     }
 
     @Override
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

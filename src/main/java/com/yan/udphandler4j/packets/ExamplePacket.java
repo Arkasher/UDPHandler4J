@@ -11,17 +11,17 @@ public class ExamplePacket extends Packet {
     private int id;
     
     @Override
-    void handle(DatagramPacket datagramPacket) {
+    public void handle(DatagramPacket datagramPacket) {
         System.out.println(getClass().getName()+ " executado com sucesso.");
     }
 
     @Override
-    int getId() {
+    public int getId() {
         return id;
     }
 
     @Override
-    void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
