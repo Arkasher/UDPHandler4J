@@ -23,7 +23,7 @@ public class PacketHandler {
      * Array de Strings para o sistema procurar por classes que herdam a classe
      * Packet
      */
-    public static final ArrayList<Package> registeredPackets = new ArrayList<>();
+    private static final ArrayList<Package> registeredPackages = new ArrayList<>();
 
     /**
      * Recebe um DatagramPacket e trata
@@ -33,8 +33,8 @@ public class PacketHandler {
     public void handle(DatagramPacket datagramPacket) {
         byte[] data = datagramPacket.getData();
 
-        Packet handledPacket = getPacketClass(data[0]);
-        handledPacket.handle(datagramPacket);
+        Packet receivedPacket = getPacketClass(data[0]);
+        receivedPacket.handle(datagramPacket);
     }
 
     /**
@@ -45,7 +45,7 @@ public class PacketHandler {
      */
     private Packet getPacketClass(byte bit) {
         for (Packet packet1 : packets) {
-            if ((byte) packet1.getId() == bit) {
+            if (packet1.getId() == bit) {
                 return packet1;
             }
         }
@@ -56,12 +56,10 @@ public class PacketHandler {
      * Carrega os pacotes do sistema
      */
     public void loadPackets() {
-        if(UDPHandler4J.getServer().getPreferences().hasDefaultPackets()) {
-            registerJavaPacket(Package.getPackage("com.yan.udphandler4j"));
-        }
-        
+        loadDefaultPackets();
+
         System.out.println("Carregando lista de pacotes...");
-        registeredPackets.forEach((javaPackage) -> {
+        registeredPackages.forEach((javaPackage) -> {
             packets.addAll(getPacketClasses(javaPackage));
         });
         System.out.println("Lista de pacotes (" + packets.size() + ") carregada com sucesso.");
@@ -101,8 +99,17 @@ public class PacketHandler {
      *
      * @param javaPacket
      */
-    public static void registerJavaPacket(Package javaPackage) {
-        registeredPackets.add(javaPackage);
+    public static void registerJavaPackage(Package javaPackage) {
+        registeredPackages.add(javaPackage);
         System.out.println("Pacote de classes Java " + javaPackage.getName() + " adicionado.");
+    }
+
+    /**
+     * Carrega os pacotes padrões do sistema
+     */
+    private void loadDefaultPackets() {
+        if (UDPHandler4J.getServer().getPreferences().hasDefaultPackets()) {
+            registerJavaPackage(Package.getPackage("com.yan.udphandler4j"));
+        }
     }
 }
