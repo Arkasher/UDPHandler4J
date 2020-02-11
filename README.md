@@ -8,7 +8,7 @@ Um Framework desenvolvido em Java com o propósito de facilitar a criação de s
 
 ```
 public static void register() {
-    PacketHandler.registerJavaPacket(Package.getPackage("com.yan.udphandler4jexample.packets"));
+    PacketHandler.registerJavaPackage(Package.getPackage("com.yan.udphandler4jexample.packets"));
 }
 ```
 
