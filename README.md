@@ -25,6 +25,8 @@ public static void main(String[] args) {
 
 ### 2.1 Crie uma classe dentro do pacote definido (1.2), extenda ela da classe Packet e implemente todos os métodos.
 
+Lembrando que o primeiro byte do pacote é reservado para o Framework, e nele você deve enviar o id do seu pacote.
+
 ```
 public class MyPacket extends Packet {
 
