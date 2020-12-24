@@ -6,7 +6,7 @@ package com.yan.udphandler4j.models;
  */
 public class Preferences {
     
-    private boolean defaultPackets;
+    private boolean defaultPackets, randomPort;
 
     public boolean hasDefaultPackets() {
         return defaultPackets;
@@ -15,6 +15,16 @@ public class Preferences {
     public void setDefaultPackets(boolean defaultPackets) {
         this.defaultPackets = defaultPackets;
     }
+
+    public boolean isRandomPort() {
+        return randomPort;
+    }
+
+    public void setRandomPort(boolean randomPort) {
+        this.randomPort = randomPort;
+    }
+    
+    
     
     
     

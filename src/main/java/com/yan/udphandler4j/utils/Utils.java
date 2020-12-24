@@ -20,7 +20,7 @@ public class Utils {
         for (String value : args) {
             String valueNoValue = value.split("=")[0];
             if (valueNoValue.equalsIgnoreCase(argument)) {
-                return Boolean.valueOf(value.split("=")[1]);
+                return Boolean.parseBoolean(value.split("=")[1]);
             }
         }
         return defaultReturn;
@@ -38,7 +38,7 @@ public class Utils {
         for (String value : args) {
             String valueNoValue = value.split("=")[0];
             if (valueNoValue.equalsIgnoreCase(argument)) {
-                return Integer.valueOf(value.split("=")[1]);
+                return Integer.parseInt(value.split("=")[1]);
             }
         }
         return defaultReturn;

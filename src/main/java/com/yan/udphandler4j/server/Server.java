@@ -7,6 +7,7 @@ import java.net.DatagramSocket;
 
 /**
  * Instancia do Servidor
+ *
  * @author Yan
  */
 public class Server {
@@ -15,13 +16,14 @@ public class Server {
     private byte[] buffer;
 
     private Preferences preferences;
-    
+
     private DatagramSocket datagramSocket;
-    
+
     /**
      * Construtor
+     *
      * @param port
-     * @param bufferSize 
+     * @param bufferSize
      */
     public Server(int port, int bufferSize) {
         this.port = port;
@@ -51,15 +53,22 @@ public class Server {
     public void setPreferences(Preferences preferences) {
         this.preferences = preferences;
     }
-    
+
+    public DatagramSocket getDatagramSocket() {
+        return datagramSocket;
+    }
+
     /**
      * Inicia o servidor UDP
      */
     public void startAndListen() {
         try {
-            datagramSocket = new DatagramSocket(port);
-
-            System.out.println("Servidor iniciado na porta " + getPort());
+            if (!getPreferences().isRandomPort()) {
+                datagramSocket = new DatagramSocket(port);
+            } else {
+                datagramSocket = new DatagramSocket();
+            }
+            System.out.println("Servidor iniciado na porta " + datagramSocket.getLocalPort());
             while (true) {
                 DatagramPacket receivePacket = new DatagramPacket(buffer,
                         buffer.length);

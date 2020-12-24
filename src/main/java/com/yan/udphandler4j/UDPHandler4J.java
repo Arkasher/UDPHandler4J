@@ -14,51 +14,58 @@ import com.yan.udphandler4j.utils.Utils;
 public class UDPHandler4J {
 
     private static Server server;
+    private static PacketHandler packetHandler;
 
     /**
      * Inicia a fila dos pacotes, inicia o servidor UDP e carrega os pacotes
      *
      * @param args
      */
-    public static void run(String args[]) {
+    public static void run(String[] args) {
 
-        /**
-         * Carrega a lista de argumentos
+        /*
+          Carrega a lista de argumentos
          */
         boolean defaultPackets = Utils.getArg(args, "--default_packets", true);
-        int port = Utils.getArg(args, "--port", 9876);
+        boolean randomPort = Utils.getArg(args, "--random_port", false);
+        int port = Utils.getArg(args, "--port", 15500);
         int buffer = Utils.getArg(args, "--buffer", 1024);
 
-        /**
-         * Carrega as preferencias
+        /*
+          Carrega as preferencias
          */
         Preferences preferences = new Preferences();
         preferences.setDefaultPackets(defaultPackets);
+        preferences.setRandomPort(randomPort);
 
-        /**
-         * Instancia o servidor e define as preferencias para o servidor
+        /*
+          Instancia o servidor e define as preferencias para o servidor
          */
         server = new Server(port, buffer);
         server.setPreferences(preferences);
 
-        /**
-         * Carrega os pacotes
+        /*
+          Carrega os pacotes
          */
-        PacketHandler packetHandler = new PacketHandler();
+        packetHandler = new PacketHandler();
         packetHandler.loadPackets();
 
-        /**
-         * Inicia a fila de pacotes
+        /*
+          Inicia a fila de pacotes
          */
         QueuedThread.startQueue();
 
-        /**
-         * Inicia o servidor
+        /*
+          Inicia o servidor
          */
         server.startAndListen();
     }
 
     public static Server getServer() {
         return server;
+    }
+    
+    public static PacketHandler getPacketHandler() {
+        return packetHandler;
     }
 }

@@ -1,5 +1,6 @@
 package com.yan.udphandler4j.async;
 
+import com.yan.udphandler4j.UDPHandler4J;
 import com.yan.udphandler4j.packets.PacketHandler;
 import java.net.DatagramPacket;
 import java.util.concurrent.BlockingQueue;
@@ -17,7 +18,7 @@ public class QueuedThread {
      * Inicia a fila de pacotes
      */
     public static void startQueue() {
-        PacketHandler handler = new PacketHandler();
+        PacketHandler handler = UDPHandler4J.getPacketHandler();
         Thread thread = new Thread(() -> {
             try {
                 while (true) {
@@ -26,8 +27,8 @@ public class QueuedThread {
                     handler.handle(packet);
                 }
             } catch (InterruptedException exception) {
-                /**
-                 * Se ocorrer algum erro, reinicia a fila
+                /*
+                  Se ocorrer algum erro, reinicia a fila
                  */
                 startQueue();
             }

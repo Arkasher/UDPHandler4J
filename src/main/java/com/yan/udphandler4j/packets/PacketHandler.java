@@ -59,9 +59,7 @@ public class PacketHandler {
         loadDefaultPackets();
 
         System.out.println("Carregando lista de pacotes...");
-        registeredPackages.forEach((javaPackage) -> {
-            packets.addAll(getPacketClasses(javaPackage));
-        });
+        registeredPackages.forEach((javaPackage) -> packets.addAll(getPacketClasses(javaPackage)));
         System.out.println("Lista de pacotes (" + packets.size() + ") carregada com sucesso.");
     }
 
@@ -73,22 +71,21 @@ public class PacketHandler {
     private ArrayList<Packet> getPacketClasses(Package javaPackage) {
         ArrayList<Packet> packetList = new ArrayList<>();
 
-        /**
-         * Identifica todas as classes do pacote que extende um Packet, e
-         * carrega.
+        /*
+          Identifica todas as classes do pacote que extende um Packet, e
+          carrega.
          */
         Reflections reflections = new Reflections(javaPackage.getName());
         Set<Class<? extends Packet>> classes = reflections.getSubTypesOf(Packet.class);
-        classes.stream().map((Class<? extends Packet> aClass) -> {
-            return aClass;
-        }).forEachOrdered((aClass) -> {
+        classes.forEach((aClass) -> {
             try {
                 Packet packet = aClass.getConstructor().newInstance();
                 packet.setId(packetList.size());
                 System.out.println("Pacote " + packet.getClass().getName() + " (" + packet.getId() + ") carregado.");
                 packetList.add(packet);
             } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | SecurityException | IllegalArgumentException | InvocationTargetException ex) {
-                System.out.println("Erro ao carregar um pacote. Erro: " + ex.getLocalizedMessage());
+                System.out.println("Erro ao carregar um pacote. Erro: ");
+                ex.printStackTrace();
             }
         });
         return packetList;
@@ -97,7 +94,7 @@ public class PacketHandler {
     /**
      * Adiciona um pacote de classes Java para o sistema buscar por pacotes.
      *
-     * @param javaPacket
+     * @param javaPackage
      */
     public static void registerJavaPackage(Package javaPackage) {
         registeredPackages.add(javaPackage);
